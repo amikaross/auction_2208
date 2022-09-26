@@ -27,7 +27,7 @@ RSpec.describe Auction do
     end
   end
 
-  dsecribe "#item_names" do 
+  describe "#item_names" do 
     it "lists the names of all items at the auction" do 
       @auction.add_item(@item1)
       @auction.add_item(@item2)
