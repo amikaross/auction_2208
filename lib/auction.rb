@@ -42,4 +42,11 @@ class Auction
   def date 
     creation_date.strftime("%d/%m/%Y")
   end
+
+  def close_auction
+    @items.each_with_object({}) do |item, hash|
+      item.close_bidding
+      item.bids == {} ? hash[item] = "Not Sold" : hash[item] = item.bids.key(item.bids.values.max)
+    end
+  end
 end

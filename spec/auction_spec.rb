@@ -124,4 +124,36 @@ RSpec.describe Auction do
       expect(@auction.bidder_info).to eq(expected_result)
     end 
   end
+
+  describe "#close_auction" do 
+    before(:each) do 
+      @auction.add_item(@item1)
+      @auction.add_item(@item2)
+      @auction.add_item(@item3)
+      @auction.add_item(@item4)
+      @auction.add_item(@item5)
+      @item1.add_bid(@attendee1, 22)
+      @item1.add_bid(@attendee2, 20)
+      @item4.add_bid(@attendee2, 30)
+      @item4.add_bid(@attendee3, 50)
+      @item3.add_bid(@attendee2, 15)
+      @item5.add_bid(@attendee1, 35)
+    end 
+
+    it "closes bidding for all items" do 
+      @auction.close_auction
+      expect(@auction.items.all? { |item| item.bidding_closed? }).to eq(true)
+    end
+
+    it "returns a hash with Items as keys and the Attendee who bought the item (or 'Not Sold') as values" do 
+      expected_result = {
+                          @item1 => @attendee1,
+                          @item2 => 'Not Sold',
+                          @item3 => @attendee2,
+                          @item4 => @attendee3,
+                          @item5=> @attendee1
+                        }
+      expect(@auction.close_auction).to eq(expected_result)
+    end
+  end
 end
