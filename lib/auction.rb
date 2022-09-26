@@ -19,5 +19,19 @@ class Auction
 
   def potential_revenue
     (@items - unpopular_items).sum { |item| item.current_high_bid }
+  end 
+
+  def bidders 
+    attendees = @items.map { |item| item.bids.keys }.flatten.uniq
+    attendees.map { |attendee| attendee.name }
+  end
+
+  def bidder_info
+    items.each_with_object(Hash.new{ |h,k| h[k] = {budget: 0, items: []}}) do |item, hash|
+      item.bids.each do |bidder, bid|
+        hash[bidder][:budget] = bidder.budget 
+        hash[bidder][:items] << item
+      end 
+    end
   end
 end
