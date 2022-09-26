@@ -1,5 +1,4 @@
 require "rspec"
-require "./lib/item"
 require "./lib/attendee"
 
 RSpec.describe Attendee do 
