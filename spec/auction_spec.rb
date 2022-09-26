@@ -24,6 +24,11 @@ RSpec.describe Auction do
     it "starts out with no items" do 
       expect(@auction.items).to eq([])
     end
+
+    it "has a date" do 
+      allow(@auction).to receive(:creation_date).and_return(Date.new(2020,2,24))
+      expect(@auction.date).to eq("24/02/2020")
+    end
   end
 
   describe "#add_item" do 

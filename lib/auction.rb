@@ -1,8 +1,12 @@
+require "date"
+
 class Auction 
-  attr_reader :items 
+  attr_reader :items,
+              :creation_date
 
   def initialize
     @items = []
+    @creation_date = Date.today
   end
 
   def add_item(item)
@@ -33,5 +37,9 @@ class Auction
         hash[bidder][:items] << item
       end 
     end
+  end
+
+  def date 
+    creation_date.strftime("%d/%m/%Y")
   end
 end
