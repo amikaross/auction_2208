@@ -1,7 +1,8 @@
+require "rspec"
 require "./lib/item"
 
 RSpec.describe Item do 
-  beofre(:each) do 
+  before(:each) do 
     @item1 = Item.new("Chalkware Piggy Bank")
   end
   describe "#initialize" do 
